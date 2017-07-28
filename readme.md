@@ -2,9 +2,9 @@
 A wordpress theme for Indonesian Student Community Website
 ppiswedia.se
 
-Developed by <a href="helloimela.com">helloimela</a>
+Developed by <a href="http://helloimela.com/#!/">helloimela</a>
 
 #### Special Thanks to:
-Designed by Eddie Machado
+Based on boilerplate designed by Eddie Machado
 http://themble.com/bones
 
