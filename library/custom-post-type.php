@@ -66,6 +66,7 @@ function custom_post_example() {
 	
 }
 
+
 	// adding the function to the Wordpress init
 	add_action( 'init', 'custom_post_example');
 	
