@@ -23,6 +23,12 @@
 								 * replace the function below with the contents of the "format.php" file.
 								*/
 								get_template_part( 'post-formats/format', get_post_format() );
+
+								// comment part
+								// If comments are open or we have at least one comment, load up the comment template.
+								if ( comments_open() || get_comments_number() ) :
+									comments_template();
+								endif;
 							?>
 
 						<?php endwhile; ?>

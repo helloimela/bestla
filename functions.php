@@ -244,4 +244,244 @@ function bones_fonts() {
 
 add_action('wp_enqueue_scripts', 'bones_fonts');
 
+
+// Featured Posts
+function sm_custom_meta() {
+    add_meta_box( 'sm_meta', __( 'Featured Posts', 'sm-textdomain' ), 'sm_meta_callback', 'post' );
+}
+function sm_meta_callback( $post ) {
+    $featured = get_post_meta( $post->ID );
+    ?>
+ 
+  <p>
+    <div class="sm-row-content">
+        <label for="meta-checkbox">
+            <input type="checkbox" name="meta-checkbox" id="meta-checkbox" value="yes" <?php if ( isset ( $featured['meta-checkbox'] ) ) checked( $featured['meta-checkbox'][0], 'yes' ); ?> />
+            <?php _e( 'Featured this post', 'sm-textdomain' )?>
+        </label>
+        
+    </div>
+</p>
+ 
+    <?php
+}
+add_action( 'add_meta_boxes', 'sm_custom_meta' );
+
+
+/**
+ * Saves the custom meta input
+ */
+function sm_meta_save( $post_id ) {
+ 
+    // Checks save status
+    $is_autosave = wp_is_post_autosave( $post_id );
+    $is_revision = wp_is_post_revision( $post_id );
+    $is_valid_nonce = ( isset( $_POST[ 'sm_nonce' ] ) && wp_verify_nonce( $_POST[ 'sm_nonce' ], basename( __FILE__ ) ) ) ? 'true' : 'false';
+ 
+    // Exits script depending on save status
+    if ( $is_autosave || $is_revision || !$is_valid_nonce ) {
+        return;
+    }
+ 
+ // Checks for input and saves
+if( isset( $_POST[ 'meta-checkbox' ] ) ) {
+    update_post_meta( $post_id, 'meta-checkbox', 'yes' );
+} else {
+    update_post_meta( $post_id, 'meta-checkbox', '' );
+}
+ 
+}
+add_action( 'save_post', 'sm_meta_save' );
+
+/* Disable WordPress Admin Bar for all users but admins. */
+  show_admin_bar(false);
+
+// Dynamic meta box
+  add_action('load-post.php','kota_meta_box');
+  add_action('load-post-new.php','kota_meta_box');
+
+  function kota_meta_box(){
+    add_action('add_meta_boxes','kota_add_meta_box');
+    add_action( 'save_post', 'kota_save_post_meta', 10, 2 );
+  }
+  function kota_add_meta_box(){
+    add_meta_box(
+      'kota-post',
+      esc_html__('Post Kota','postkota'),
+      'kota_post_meta_box',
+      'page',
+      'normal',
+      'high'
+      );
+  }
+  function kota_post_meta_box($page){
+      wp_nonce_field( basename( __FILE__ ), 'kota_post_nonce' ); ?>
+      <?php 
+      $kota_akomodasi = get_post_meta( $page->ID, 'kota-akomodasi', true );
+      $kota_biaya_val = get_post_meta( $page->ID, 'kota-biaya', true );
+      $kota_htgt_val = get_post_meta( $page->ID, 'kota-htgt', true );
+      $kota_tourist_val = get_post_meta( $page->ID, 'kota-tourist', true );
+      $kota_ibadah_val = get_post_meta( $page->ID, 'kota-ibadah', true );
+      $kota_kegiatan_val = get_post_meta( $page->ID, 'kota-kegiatan', true );
+      $kota_website_val = get_post_meta( $page->ID, 'kota-website', true );
+       ?>
+        <p>
+          <label for="kota-name"><?php _e( "Nama Kota", 'namakota' ); ?></label>
+          <br />
+          <input class="widefat" type="text" name="kota-name" id="kota-name" value="<?php echo esc_attr( get_post_meta( $page->ID, 'kota-name', true ) ); ?>" size="30" />
+        </p>
+        <p>
+          <label for="kota-website"><?php _e( "Website", 'website' ); ?></label>
+          <br />
+          <input class="widefat" type="text" name="kota-website" id="kota-website" value="<?php echo esc_attr( get_post_meta( $page->ID, 'kota-website', true ) ); ?>" size="30" />
+        </p>
+        <p>
+          <label for="kota-akomodasi"><?php _e( "Akomodasi", 'akomodasi' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-akomodasi" id="kota-akomodasi"><?php echo esc_attr( $kota_akomodasi ); ?></textarea>
+        </p>
+        <p>
+          <label for="kota-biaya"><?php _e( "Biaya Hidup", 'biaya' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-biaya" id="kota-biaya"><?php echo esc_attr( $kota_biaya_val ); ?></textarea>
+        </p>
+        <p>
+          <label for="kota-htgt"><?php _e( "Transportasi", 'htgt' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-htgt" id="kota-htgt"><?php echo esc_attr( $kota_htgt_val ); ?></textarea>
+        </p>
+        <p>
+          <label for="kota-tourist"><?php _e( "Tourist Attraction", 'tourist' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-tourist" id="kota-tourist"><?php echo esc_attr( $kota_tourist_val ); ?></textarea>
+        </p>
+        <p>
+          <label for="kota-ibadah"><?php _e( "Tempat Ibadah", 'ibadah' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-ibadah" id="kota-ibadah"><?php echo esc_attr( $kota_ibadah_val ); ?></textarea>
+        </p>
+        <p>
+          <label for="kota-kegiatan"><?php _e( "Kegiatan Rutin", 'kegiatan' ); ?></label>
+          <br>
+          <textarea rows="5" class="widefat" name="kota-kegiatan" id="kota-kegiatan"><?php echo esc_attr( $kota_kegiatan_val ); ?></textarea>
+        </p>
+      <?php 
+  }
+  function kota_save_post_meta($post_id, $post){
+        if ( ! ( isset( $_POST[ 'kota_post_nonce' ] ) && wp_verify_nonce( $_POST[ 'kota_post_nonce' ], basename( __FILE__ ) ) ) ) {
+                return $post_id;
+              }
+    if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return $post_id;
+          }
+     
+          if( 'page' != $post->post_type ) {
+            return $post_id;
+          }
+     
+          $page_template_text_value = isset( $_POST[ 'kota-name' ] ) ? $_POST[ 'kota-name' ] : '';
+          update_post_meta( $post_id, 'kota-name', $page_template_text_value );
+
+          $kota_website = isset( $_POST[ 'kota-website' ] ) ? $_POST[ 'kota-website' ] : '';
+          update_post_meta( $post_id, 'kota-website', $kota_website );
+
+          $kota_akomodasi = isset( $_POST[ 'kota-akomodasi' ] ) ? $_POST[ 'kota-akomodasi' ] : '';
+          update_post_meta( $post_id, 'kota-akomodasi', $kota_akomodasi );
+
+          $kota_biaya = isset( $_POST[ 'kota-biaya' ] ) ? $_POST[ 'kota-biaya' ] : '';
+          update_post_meta( $post_id, 'kota-biaya', $kota_biaya );
+
+          $kota_htgt = isset( $_POST[ 'kota-htgt' ] ) ? $_POST[ 'kota-htgt' ] : '';
+          update_post_meta( $post_id, 'kota-htgt', $kota_htgt );
+    
+          $kota_tourist = isset( $_POST[ 'kota-tourist' ] ) ? $_POST[ 'kota-tourist' ] : '';
+          update_post_meta( $post_id, 'kota-tourist', $kota_tourist );
+
+          $kota_ibadah = isset( $_POST[ 'kota-ibadah' ] ) ? $_POST[ 'kota-ibadah' ] : '';
+          update_post_meta( $post_id, 'kota-ibadah', $kota_ibadah );
+
+          $kota_kegiatan = isset( $_POST[ 'kota-kegiatan' ] ) ? $_POST[ 'kota-kegiatan' ] : '';
+          update_post_meta( $post_id, 'kota-kegiatan', $kota_kegiatan );
+  }
+
+  // Add script to page all kota
+  function add_script_kota(){
+    wp_register_script( 'mapkota-script', get_template_directory_uri() . '/library/js/mapkota.js' );
+    wp_enqueue_script( 'mapkota-script' );
+  }
+  add_action( 'wp_enqueue_scripts', 'add_script_kota' );
+
+  function add_google_script() {
+    wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js');
+    wp_enqueue_script('google-jsapi','https://www.google.com/jsapi');     
+  }
+  add_action('wp_enqueue_scripts', 'add_google_script');
+
+  /*
+  Dynamic meta box for author
+  */
+  add_action('add_meta_boxes','func_author_fields');
+
+  function func_author_fields(){
+    add_meta_box('author_fields','Penulis','func_author_form','post');
+  }
+
+  function func_author_form($post){
+    wp_nonce_field( 'post_inner_custom_box', 'post_inner_custom_box_nonce' );
+    ?>
+        <p>
+          <label for="author_name"><?php _e( "Nama", 'nama' ); ?></label>
+          <br />
+          <input class="widefat" type="text" name="author_name" id="author_name" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_name', true ) ); ?>" size="30" />
+        </p>
+        <p>
+          <label for="author_kota"><?php _e( "Kota", 'kota' ); ?></label>
+          <br />
+          <input class="widefat" type="text" name="author_kota" id="author_kota" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_kota', true ) ); ?>" size="30" />
+        </p>
+        <p>
+          <label for="author_major"><?php _e( "Major", 'major' ); ?></label>
+          <br />
+          <input class="widefat" type="text" name="author_major" id="author_major" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_major', true ) ); ?>" size="30" />
+        </p>
+    <?php
+  }
+
+  add_action('save_post','func_save_author_fields');
+
+  function func_save_author_fields($post_id, $post){
+    if ( ! isset( $_POST['post_inner_custom_box_nonce'] ) )
+        return $post_id;
+
+      $nonce = $_POST['post_inner_custom_box_nonce'];
+
+      // Verify that the nonce is valid.
+      if ( ! wp_verify_nonce( $nonce, 'post_inner_custom_box' ) )
+          return $post_id;
+
+      if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
+          return $post_id;
+
+      if ( 'page' == $_POST['post_type'] ) {
+
+        if ( ! current_user_can( 'edit_page', $post_id ) )
+            return $post_id;
+
+      } else {
+
+        if ( ! current_user_can( 'edit_post', $post_id ) )
+            return $post_id;
+      }
+
+      $txt_field = esc_attr( $_POST['author_name'] );
+      update_post_meta( $post_id, 'author_name', $txt_field );
+
+      $txt_field_kota = esc_attr( $_POST['author_kota'] );
+      update_post_meta( $post_id, 'author_kota', $txt_field_kota );
+
+      $txt_field_major = esc_attr( $_POST['author_major'] );
+      update_post_meta( $post_id, 'author_major', $txt_field_major );
+  }
+
+
 /* DON'T DELETE THIS CLOSING TAG */ ?>

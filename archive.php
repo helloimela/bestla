@@ -30,7 +30,6 @@
 								</header>
 
 								<section class="entry-content cf">
-
 									<?php the_post_thumbnail( 'bones-thumb-300' ); ?>
 
 									<?php the_excerpt(); ?>
@@ -56,9 +55,6 @@
 										<section class="entry-content">
 											<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'bonestheme' ); ?></p>
 										</section>
-										<footer class="article-footer">
-												<p><?php _e( 'This is the error message in the archive.php template.', 'bonestheme' ); ?></p>
-										</footer>
 									</article>
 
 							<?php endif; ?>

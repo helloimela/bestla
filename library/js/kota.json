@@ -1,0 +1,57 @@
+{
+
+"points":[
+    {
+      "title": "Stockholm",
+      "lat": 59.3,
+      "lng": 18.1,
+      "link": "http://localhost/yggdrasil/index.php/kota/stockholm/",
+      "s1":"20",
+      "s2":"80",
+      "s3":"9",
+      "exchange":"10"
+    },
+    {
+      "title": "Uppsala",
+      "lat": 59.858564,
+      "lng": 17.638927,
+      "link": "http://localhost/yggdrasil/index.php/kota/uppsala/",
+      "s1":"20",
+      "s2":"80",
+      "s3":"9",
+      "exchange":"10"
+    },
+    {
+      "title": "Malmo",
+      "lat": 55.604981,
+      "lng": 13.003822,
+      "link": "http://localhost/yggdrasil/index.php/kota/lund/",
+      "s1":"20",
+      "s2":"80",
+      "s3":"9",
+      "exchange":"10"
+    },
+    {
+      "title": "Lund",
+      "lat": 55.704660,
+      "lng": 13.191007,
+      "link": "http://localhost/yggdrasil/index.php/kota/lund/",
+      "s1":"20",
+      "s2":"80",
+      "s3":"9",
+      "exchange":"10"
+    },
+    {
+      "title": "Gothenburg",
+      "lat": 57.708870,
+      "lng": 11.974560,
+      "link": "http://localhost/yggdrasil/index.php/kota/gothenburg/",
+      "s1":"20",
+      "s2":"80",
+      "s3":"9",
+      "exchange":"10"
+    }
+]
+
+
+}

@@ -21,13 +21,7 @@
                   <h1 class="entry-title single-title" itemprop="headline" rel="bookmark"><?php the_title(); ?></h1>
 
                   <p class="byline entry-meta vcard">
-
-                    <?php printf( __( 'Posted', 'bonestheme' ).' %1$s %2$s',
-                       /* the time the post was published */
-                       '<time class="updated entry-time" datetime="' . get_the_time('Y-m-d') . '" itemprop="datePublished">' . get_the_time(get_option('date_format')) . '</time>',
-                       /* the author of the post */
-                       '<span class="by">'.__( 'by', 'bonestheme' ).'</span> <span class="entry-author author" itemprop="author" itemscope itemptype="http://schema.org/Person">' . get_the_author_link( get_the_author_meta( 'ID' ) ) . '</span>'
-                    ); ?>
+                  Posted by <?php the_author_posts_link(); ?> on <?php echo '<span class="updated entry-time" datetime="' . get_the_time('Y-m-d') . '" itemprop="datePublished">' . get_the_time(get_option('date_format')) . '</span>'; ?>
 
                   </p>
 
@@ -37,6 +31,19 @@
                   <?php
                     // the content (pretty self explanatory huh)
                     the_content();
+
+                    if(get_post_meta( get_the_ID(), 'author_name')){
+                      $author_name = get_post_meta( get_the_ID(), 'author_name', true);
+                      $author_kota = get_post_meta( get_the_ID(), 'author_kota', true);
+                      $author_major = get_post_meta( get_the_ID(), 'author_major', true);
+
+                      ?>
+                      <div class="custom-author">
+                        <p>Penulis: <?php echo $author_name; ?> - <?php echo $author_kota; ?>
+                        <br><?php echo $author_major; ?></p>
+                      </div>
+                      <?php
+                    }
 
                     /*
                      * Link Pages is used in case you have posts that are set to break into
@@ -60,10 +67,21 @@
                 </section> <?php // end article section ?>
 
                 <footer class="article-footer">
-
-                  <?php printf( __( 'filed under', 'bonestheme' ).': %1$s', get_the_category_list(', ') ); ?>
+                  <div>
+                    <?php printf( __( 'Category', 'bonestheme' ).': %1$s', get_the_category_list(', ') ); ?>
 
                   <?php the_tags( '<p class="tags"><span class="tags-title">' . __( 'Tags:', 'bonestheme' ) . '</span> ', ', ', '</p>' ); ?>
+                  </div>
+
+                  
+                  <div class="d-1of2 t-1of2 prevnextpost">
+                    <p>Previous Post</p>
+                    <p><?php previous_post_link(); ?></p>
+                  </div>
+                  <div class="d-1of2 t-1of2 prevnextpost next">
+                    <p>Next Post</p>
+                    <p><?php next_post_link(); ?></p>
+                  </div>
 
                 </footer> <?php // end article footer ?>
 
