@@ -1,10 +1,10 @@
 			<div class="logo-support">
 				
 						<ul class="wrap cf">
-							<li><a href="http://www.kemlu.go.id/stockholm/id/default.aspx" target="_blank"><img src="<?php get_site_url(); ?>/wp-content/themes/bestla/library/images/kbri-swedia.png"></a></li>
-							<li><a href="https://www.facebook.com/EmbassyofSwedeninJakarta/" target="_blank"><img src="<?php get_site_url(); ?>/wp-content/themes/bestla/library/images/embassy-sweden-jakarta.gif"></a></li>
-							<li><a href="http://www.svensk-indonesiska.se/" target="_blank"><img src="<?php get_site_url(); ?>/wp-content/themes/bestla/library/images/sis.jpg"></a></li>
-							<li><a href="https://studyinsweden.se/" target="_blank"><img src="<?php get_site_url(); ?>/wp-content/themes/bestla/library/images/logo_si.png"></a></li>
+							<li><a href="http://www.kemlu.go.id/stockholm/id/default.aspx" target="_blank"><img src="<?php echo get_site_url(); ?>/wp-content/themes/bestla/library/images/kbri-swedia.png"></a></li>
+							<li><a href="https://www.facebook.com/EmbassyofSwedeninJakarta/" target="_blank"><img src="<?php echo get_site_url(); ?>/wp-content/themes/bestla/library/images/embassy-sweden-jakarta.gif"></a></li>
+							<li><a href="http://www.svensk-indonesiska.se/" target="_blank"><img src="<?php echo get_site_url(); ?>/wp-content/themes/bestla/library/images/sis.jpg"></a></li>
+							<li><a href="https://studyinsweden.se/" target="_blank"><img src="<?php echo get_site_url(); ?>/wp-content/themes/bestla/library/images/logo_si.png"></a></li>
 						</ul>
 			</div>
 			<footer class="footer" role="contentinfo" itemscope itemtype="http://schema.org/WPFooter">
