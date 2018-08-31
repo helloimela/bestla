@@ -405,11 +405,11 @@ add_action( 'save_post', 'sm_meta_save' );
   }
 
   // Add script to page all kota
-  function add_script_kota(){
+  /* function add_script_kota(){
     wp_register_script( 'mapkota-script', get_template_directory_uri() . '/library/js/mapkota.js' );
     wp_enqueue_script( 'mapkota-script' );
-  }
-  add_action( 'wp_enqueue_scripts', 'add_script_kota' );
+  } */
+  // add_action( 'wp_enqueue_scripts', 'add_script_kota' );
 
   function add_google_script() {
     wp_enqueue_script('google-maps', 'https://maps.googleapis.com/maps/api/js');
@@ -420,68 +420,13 @@ add_action( 'save_post', 'sm_meta_save' );
   /*
   Dynamic meta box for author
   */
-  add_action('add_meta_boxes','func_author_fields');
+  // add_action('add_meta_boxes','func_author_fields');
 
-  function func_author_fields(){
-    add_meta_box('author_fields','Penulis','func_author_form','post');
-  }
+  // function func_author_fields(){
+  //   add_meta_box('author_fields','Penulis','func_author_form','post');
+  // }
 
-  function func_author_form($post){
-    wp_nonce_field( 'post_inner_custom_box', 'post_inner_custom_box_nonce' );
-    ?>
-        <p>
-          <label for="author_name"><?php _e( "Nama", 'nama' ); ?></label>
-          <br />
-          <input class="widefat" type="text" name="author_name" id="author_name" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_name', true ) ); ?>" size="30" />
-        </p>
-        <p>
-          <label for="author_kota"><?php _e( "Kota", 'kota' ); ?></label>
-          <br />
-          <input class="widefat" type="text" name="author_kota" id="author_kota" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_kota', true ) ); ?>" size="30" />
-        </p>
-        <p>
-          <label for="author_major"><?php _e( "Major", 'major' ); ?></label>
-          <br />
-          <input class="widefat" type="text" name="author_major" id="author_major" value="<?php echo esc_attr( get_post_meta( $post->ID, 'author_major', true ) ); ?>" size="30" />
-        </p>
-    <?php
-  }
-
-  add_action('save_post','func_save_author_fields');
-
-  function func_save_author_fields($post_id, $post){
-    if ( ! isset( $_POST['post_inner_custom_box_nonce'] ) )
-        return $post_id;
-
-      $nonce = $_POST['post_inner_custom_box_nonce'];
-
-      // Verify that the nonce is valid.
-      if ( ! wp_verify_nonce( $nonce, 'post_inner_custom_box' ) )
-          return $post_id;
-
-      if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
-          return $post_id;
-
-      if ( 'page' == $_POST['post_type'] ) {
-
-        if ( ! current_user_can( 'edit_page', $post_id ) )
-            return $post_id;
-
-      } else {
-
-        if ( ! current_user_can( 'edit_post', $post_id ) )
-            return $post_id;
-      }
-
-      $txt_field = esc_attr( $_POST['author_name'] );
-      update_post_meta( $post_id, 'author_name', $txt_field );
-
-      $txt_field_kota = esc_attr( $_POST['author_kota'] );
-      update_post_meta( $post_id, 'author_kota', $txt_field_kota );
-
-      $txt_field_major = esc_attr( $_POST['author_major'] );
-      update_post_meta( $post_id, 'author_major', $txt_field_major );
-  }
+  
 
 
 /* DON'T DELETE THIS CLOSING TAG */ ?>
