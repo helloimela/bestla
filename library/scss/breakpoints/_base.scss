@@ -125,6 +125,26 @@ style a page via class
 // endof pagekota
 }
 
+// list-all-kota
+.list-all-kota{
+	>div{
+		margin-bottom: 20px;
+		cursor: pointer;
+	}
+	.img-wrp{
+		width: 100%;
+		height: 150px;
+		background-position: center;
+		background-size: cover;
+	}
+	.nama-kota {
+	    background: #efefef;
+	    padding: 15px;
+	    font-size: 1.2em;
+	    text-align: center;
+	}
+}
+
 .instagram-feed{
 	background: #000;
 	h1{
@@ -429,10 +449,13 @@ POSTS & CONTENT STYLES
 
 		} /* end .hentry */
 
+		article.hentry{height: auto;}
+
 		.post-wrapper{
 			background: #ebebeb;
 			border: 1px solid $border-color;
 			height: 100%;
+			.h2{font-size: 1.5em;}
 		}
 		.post-thumb{
 			height: 100%;

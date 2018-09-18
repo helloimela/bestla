@@ -114,6 +114,10 @@ jQuery(document).ready(function($) {
    * You can remove this if you don't need it
   */
   loadGravatars();
-  initMap();
+  
+    $('.list-all-kota>div').click(function(e){
+        e.preventDefault();
+        window.location = (jQuery(this).attr('data-href'));
+    });
 
 }); /* end of as page load scripts */
